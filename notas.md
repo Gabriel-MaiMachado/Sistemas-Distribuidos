@@ -9,3 +9,4 @@ vai precisar ter controller - model - service - comunication
         - endereço IP: Servidor, cliente, grupo
         - máscara ou classe de rede e dominio
         - socket
+        - porta lógica
