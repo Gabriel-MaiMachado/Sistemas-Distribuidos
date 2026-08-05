@@ -57,3 +57,16 @@ SISTEMAS PARALELOS
 Programação - Multitarefa (comitante e concorrente)
 Por que usar sistemas distribuídos? Para compartilhar recursos
 Comoos sistemas distribuídos vão operar? : Comunicação de dados, através de protocolos de comunicação utilizando modelos tcp/ip
+Arquitetura -> Cliente - Servidor
+
+THREAD
+-> Mini processos
+-> "Envolvem" rotinas ou tarefas ou instruções
+-> executá-las concorrentemente
+
+--> Tipos: Sem seção crítica = memoria compartilhada
+
+#PROCESSOS 
+Thread (classe) --- sem Memoria compartilhada
+Runnable ( Interface) -- com memoria compartilhada
+Objeto 
