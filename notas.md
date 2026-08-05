@@ -54,3 +54,6 @@ SISTEMAS PARALELOS
 
 - Objetivo: compartilhar recursos (processador e memória)
 
+Programação - Multitarefa (comitante e concorrente)
+Por que usar sistemas distribuídos? Para compartilhar recursos
+Comoos sistemas distribuídos vão operar? : Comunicação de dados, através de protocolos de comunicação utilizando modelos tcp/ip
