@@ -1,38 +1,27 @@
-# Trabalho Prático – Cliente/Servidor UDP (MVC)
+Trabalho de Sistemas Distribuídos - Cliente/Servidor UDP
 
-Aplicação cliente-servidor em Java usando UDP (classe `Comunicador`) e interface gráfica em Swing, organizada no padrão MVC.
+Trabalho prático da disciplina de Sistemas Distribuídos. A ideia é um cliente com interface gráfica (Swing) que se cadastra num servidor e fica pedindo um token de tempos em tempos, tudo usando UDP pela classe Comunicador.
 
-## Estrutura
+O que o programa faz
+O cliente manda nome e e-mail pro servidor
+O servidor salva numa lista de Pessoa e não deixa cadastrar o mesmo e-mail duas vezes
+Depois de cadastrado, o cliente pede o token a cada 15 segundos (ou na hora, pelo botão)
+O token dura 60 segundos. Se pedir antes disso o servidor manda o mesmo, se já passou ele gera outro
+Organização
 
-```
-src/main/java/
-├── model/
-│   └── Pessoa.java              -> dados do usuário e regra do token (60s)
-├── view/
-│   └── TelaCliente.java         -> interface gráfica (Swing), só exibe e repassa eventos
-└── controller/
-    ├── Comunicador.java         -> monta, envia e recebe os datagramas UDP
-    ├── ClienteUDP.java          -> envia os pedidos do cliente ao servidor
-    ├── ClienteController.java   -> trata os eventos da tela e interpreta as respostas
-    └── ServidorController.java  -> servidor UDP (porta 5000) com a lista de pessoas
-```
+Separei em MVC:
 
-## Protocolo (campos separados por `|`)
+model - classe Pessoa, que guarda os dados e cuida do token
+view - a tela do cliente
+controller - Comunicador, ClienteUDP, ClienteController e o ServidorController
+Mensagens
 
-| Cliente envia              | Servidor responde                                  |
-|----------------------------|----------------------------------------------------|
-| `CADASTRAR|nome|email`     | `OK|mensagem` ou `ERRO|mensagem` (e-mail repetido)  |
-| `TOKEN|email`              | `TOKEN|chave|segundosRestantes` ou `ERRO|mensagem`  |
+Usei o | pra separar os campos:
 
-## Regras
+CADASTRAR|nome|email - servidor responde OK|... ou ERRO|...
+TOKEN|email - servidor responde TOKEN|chave|segundos que faltam ou ERRO|...
+Como rodar
 
-- O servidor guarda as pessoas em um `ArrayList<Pessoa>` e recusa cadastro com e-mail já existente.
-- O token é uma chave aleatória de 8 caracteres e vale 60 segundos a partir de quando foi gerado.
-- Se o cliente pedir de novo dentro dos 60s, recebe o mesmo token; depois disso, um novo é gerado.
-- O cliente pede o token automaticamente a cada 15 segundos (dá para desligar ou pedir manualmente).
+Abrir no NetBeans como projeto Maven, rodar primeiro o ServidorController e depois a TelaCliente. Dá pra abrir mais de um cliente ao mesmo tempo pra testar o cadastro duplicado.
 
-## Como executar (NetBeans)
-
-1. Abra a pasta `TrabalhoUDP` como projeto Maven.
-2. Rode primeiro `controller/ServidorController.java` (botão direito → Run File).
-3. Depois rode `view/TelaCliente.java`. Pode abrir mais de um cliente ao mesmo tempo.
+O servidor usa a porta 5000.
